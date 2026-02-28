@@ -8,9 +8,10 @@ interface DayEditorProps {
   day: Day;
   onUpdate: (day: Day) => void;
   onDelete?: () => void;
+  googleMapsApiKey?: string;
 }
 
-export function DayEditor({ day, onUpdate, onDelete }: DayEditorProps) {
+export function DayEditor({ day, onUpdate, onDelete, googleMapsApiKey }: DayEditorProps) {
   const addLocation = () => {
     const newLocation: Location = {
       id: generateId(),
@@ -85,11 +86,13 @@ export function DayEditor({ day, onUpdate, onDelete }: DayEditorProps) {
             key={location.id}
             location={location}
             index={index}
+            previousLocation={index > 0 ? day.locations[index - 1] : undefined}
             onUpdate={(loc) => updateLocation(index, loc)}
             onDelete={() => deleteLocation(index)}
             onMoveUp={index > 0 ? () => moveLocation(index, "up") : undefined}
             onMoveDown={index < day.locations.length - 1 ? () => moveLocation(index, "down") : undefined}
             showTransport={index > 0}
+            googleMapsApiKey={googleMapsApiKey}
           />
         ))}
       </div>

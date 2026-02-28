@@ -1,7 +1,7 @@
 "use client";
 
 import { TripPlan } from "@/types/trip";
-import { formatDuration } from "@/lib/trip-utils";
+import { formatDuration, getTravelModeEmoji } from "@/lib/trip-utils";
 
 interface TripTimelineProps {
   plan: TripPlan;
@@ -54,7 +54,11 @@ export function TripTimeline({ plan }: TripTimelineProps) {
                     {location.transport && (
                       <div className="mb-3 text-sm text-gray-600 bg-blue-50 rounded-lg p-3">
                         <div className="flex items-center gap-2">
-                          <span>🚆</span>
+                          <span className="text-xl">
+                            {location.transport.travelMode 
+                              ? getTravelModeEmoji(location.transport.travelMode)
+                              : "🚆"}
+                          </span>
                           <span className="font-medium">{location.transport.method}</span>
                           <span className="text-gray-500">
                             ({formatDuration(location.transport.duration)})

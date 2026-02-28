@@ -5,11 +5,14 @@ import { TripPlan, Day } from "@/types/trip";
 import { createEmptyTripPlan, encodeTripPlan, decodeTripPlan, generateId } from "@/lib/trip-utils";
 import { DayEditor } from "@/components/DayEditor";
 import { TripTimeline } from "@/components/TripTimeline";
+import { TripMap } from "@/components/TripMap";
 
 export default function HomePage() {
   const [tripPlan, setTripPlan] = useState<TripPlan>(createEmptyTripPlan());
   const [mode, setMode] = useState<"edit" | "view">("edit");
   const [copied, setCopied] = useState(false);
+  const [showMap, setShowMap] = useState(false);
+  const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   // Load from URL on mount
   useEffect(() => {
@@ -65,6 +68,9 @@ export default function HomePage() {
     setTripPlan(createEmptyTripPlan());
     setMode("edit");
   };
+
+  // Get all locations from all days
+  const allLocations = tripPlan.days.flatMap((day) => day.locations);
 
   return (
     <main className="min-h-screen p-4 md:p-8 bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -130,6 +136,24 @@ export default function HomePage() {
           )}
         </div>
 
+        {/* Map Section */}
+        {allLocations.length > 0 && (
+          <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold text-gray-800">🗺️ マップ表示</h2>
+              <button
+                onClick={() => setShowMap(!showMap)}
+                className="px-3 py-1 text-sm bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
+              >
+                {showMap ? "非表示" : "表示"}
+              </button>
+            </div>
+            {showMap && (
+              <TripMap locations={allLocations} apiKey={googleMapsApiKey} />
+            )}
+          </div>
+        )}
+
         {mode === "edit" ? (
           <div className="space-y-6">
             {tripPlan.days.map((day, index) => (
@@ -138,6 +162,7 @@ export default function HomePage() {
                 day={day}
                 onUpdate={(d) => updateDay(index, d)}
                 onDelete={tripPlan.days.length > 1 ? () => deleteDay(index) : undefined}
+                googleMapsApiKey={googleMapsApiKey}
               />
             ))}
 
