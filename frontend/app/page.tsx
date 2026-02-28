@@ -75,17 +75,17 @@ export default function HomePage() {
   return (
     <main className="min-h-screen p-4 md:p-8 bg-gradient-to-br from-blue-50 to-indigo-100">
       <div className="max-w-4xl mx-auto">
-        <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">✈️ Trippy</h1>
-          <p className="text-gray-600">旅行経路を作成してURLで共有しよう</p>
+        <div className="mb-6 md:mb-8 text-center">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">✈️ Trippy</h1>
+          <p className="text-sm md:text-base text-gray-600">旅行経路を作成してURLで共有しよう</p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-          <div className="flex flex-wrap gap-4 items-center justify-between mb-4">
+        <div className="bg-white rounded-lg shadow-lg p-4 md:p-6 mb-4 md:mb-6">
+          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 items-stretch sm:items-center justify-between mb-4">
             <div className="flex gap-2">
               <button
                 onClick={() => setMode("edit")}
-                className={`px-4 py-2 rounded-md transition-colors ${
+                className={`flex-1 sm:flex-none px-4 py-2 rounded-md transition-colors text-sm md:text-base ${
                   mode === "edit"
                     ? "bg-blue-500 text-white"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
@@ -95,7 +95,7 @@ export default function HomePage() {
               </button>
               <button
                 onClick={() => setMode("view")}
-                className={`px-4 py-2 rounded-md transition-colors ${
+                className={`flex-1 sm:flex-none px-4 py-2 rounded-md transition-colors text-sm md:text-base ${
                   mode === "view"
                     ? "bg-blue-500 text-white"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
@@ -104,16 +104,16 @@ export default function HomePage() {
                 プレビュー
               </button>
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <button
                 onClick={shareTrip}
-                className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors"
+                className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors text-sm md:text-base"
               >
                 {copied ? "✓ コピー済み" : "📋 共有リンクをコピー"}
               </button>
               <button
                 onClick={resetTrip}
-                className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors"
+                className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors text-sm md:text-base"
               >
                 新規作成
               </button>
@@ -130,7 +130,7 @@ export default function HomePage() {
                 value={tripPlan.title}
                 onChange={(e) => setTripPlan({ ...tripPlan, title: e.target.value })}
                 placeholder="例: 北海道旅行"
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm md:text-base"
               />
             </div>
           )}
@@ -138,12 +138,12 @@ export default function HomePage() {
 
         {/* Map Section */}
         {allLocations.length > 0 && (
-          <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+          <div className="bg-white rounded-lg shadow-lg p-4 md:p-6 mb-4 md:mb-6">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-gray-800">🗺️ マップ表示</h2>
+              <h2 className="text-base md:text-lg font-semibold text-gray-800">🗺️ マップ表示</h2>
               <button
                 onClick={() => setShowMap(!showMap)}
-                className="px-3 py-1 text-sm bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
+                className="px-3 py-1 text-xs md:text-sm bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
               >
                 {showMap ? "非表示" : "表示"}
               </button>

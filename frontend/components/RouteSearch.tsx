@@ -116,10 +116,10 @@ export function RouteSearch({ origin, destination, apiKey, onSelect, onClose }: 
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[80vh] overflow-y-auto">
-        <div className="p-6">
+      <div className="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+        <div className="p-4 md:p-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">ルート検索</h3>
+            <h3 className="text-base md:text-lg font-semibold text-gray-900">ルート検索</h3>
             <button
               onClick={onClose}
               className="text-gray-400 hover:text-gray-600 text-2xl leading-none"
@@ -128,14 +128,14 @@ export function RouteSearch({ origin, destination, apiKey, onSelect, onClose }: 
             </button>
           </div>
 
-          <div className="mb-4 text-sm">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-blue-600">📍</span>
-              <span className="font-medium">{origin.name || "出発地"}</span>
+          <div className="mb-4 text-sm space-y-2">
+            <div className="flex items-start gap-2">
+              <span className="text-blue-600 flex-shrink-0">📍</span>
+              <span className="font-medium break-words">{origin.name || "出発地"}</span>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-red-600">📍</span>
-              <span className="font-medium">{destination.name || "目的地"}</span>
+            <div className="flex items-start gap-2">
+              <span className="text-red-600 flex-shrink-0">📍</span>
+              <span className="font-medium break-words">{destination.name || "目的地"}</span>
             </div>
           </div>
 
@@ -143,42 +143,42 @@ export function RouteSearch({ origin, destination, apiKey, onSelect, onClose }: 
             <button
               onClick={searchRoutes}
               disabled={loading || !apiKey}
-              className="w-full py-3 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+              className="w-full py-3 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed text-sm md:text-base"
             >
               {loading ? "検索中..." : "🔍 ルートを検索"}
             </button>
           )}
 
           {error && (
-            <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-md text-red-700 text-sm">
+            <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-md text-red-700 text-xs md:text-sm">
               {error}
             </div>
           )}
 
           {routes.length > 0 && (
             <div className="mt-4 space-y-2">
-              <p className="text-sm font-medium text-gray-700 mb-3">
+              <p className="text-xs md:text-sm font-medium text-gray-700 mb-3">
                 移動手段を選択してください：
               </p>
               {routes.map((route, index) => (
                 <button
                   key={index}
                   onClick={() => handleSelect(route)}
-                  className="w-full p-4 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors text-left"
+                  className="w-full p-3 md:p-4 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors text-left"
                 >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <span className="text-2xl">{getTravelModeEmoji(route.mode)}</span>
-                      <div>
-                        <div className="font-semibold text-gray-900">
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2 md:gap-3 min-w-0">
+                      <span className="text-xl md:text-2xl flex-shrink-0">{getTravelModeEmoji(route.mode)}</span>
+                      <div className="min-w-0">
+                        <div className="font-semibold text-gray-900 text-sm md:text-base">
                           {getTravelModeLabel(route.mode)}
                         </div>
-                        <div className="text-sm text-gray-600">
+                        <div className="text-xs md:text-sm text-gray-600 truncate">
                           {route.durationText} • {route.distanceText}
                         </div>
                       </div>
                     </div>
-                    <div className="text-blue-500">
+                    <div className="text-blue-500 flex-shrink-0">
                       →
                     </div>
                   </div>
@@ -190,7 +190,7 @@ export function RouteSearch({ origin, destination, apiKey, onSelect, onClose }: 
           {searched && routes.length > 0 && (
             <button
               onClick={onClose}
-              className="w-full mt-4 py-2 px-4 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
+              className="w-full mt-4 py-2 px-4 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors text-sm md:text-base"
             >
               キャンセル
             </button>
