@@ -6,6 +6,7 @@ import { createEmptyTripPlan, encodeTripPlan, decodeTripPlan, generateId } from 
 import { DayEditor } from "@/components/DayEditor";
 import { TripTimeline } from "@/components/TripTimeline";
 import { TripMap } from "@/components/TripMap";
+import { AdSense } from "@/components/AdSense";
 
 export default function HomePage() {
   const [tripPlan, setTripPlan] = useState<TripPlan>(createEmptyTripPlan());
@@ -166,6 +167,13 @@ export default function HomePage() {
               />
             ))}
 
+            {/* Ad between days and add button */}
+            <AdSense
+              adSlot="1234567890"
+              adFormat="horizontal"
+              className="my-6"
+            />
+
             <button
               onClick={addDay}
               className="w-full py-3 px-4 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 transition-colors font-medium"
@@ -174,7 +182,16 @@ export default function HomePage() {
             </button>
           </div>
         ) : (
-          <TripTimeline plan={tripPlan} />
+          <div className="space-y-6">
+            <TripTimeline plan={tripPlan} />
+            
+            {/* Ad at the bottom of timeline */}
+            <AdSense
+              adSlot="1234567890"
+              adFormat="auto"
+              className="mt-8"
+            />
+          </div>
         )}
       </div>
     </main>
