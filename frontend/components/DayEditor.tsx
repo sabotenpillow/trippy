@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Day, Location } from "@/types/trip";
 import { generateId } from "@/lib/trip-utils";
 import { LocationCard } from "./LocationCard";
@@ -12,6 +13,8 @@ interface DayEditorProps {
 }
 
 export function DayEditor({ day, onUpdate, onDelete, googleMapsApiKey }: DayEditorProps) {
+  const t = useTranslations('trip');
+  const tLocation = useTranslations('location');
   const addLocation = () => {
     const newLocation: Location = {
       id: generateId(),
@@ -62,7 +65,7 @@ export function DayEditor({ day, onUpdate, onDelete, googleMapsApiKey }: DayEdit
     <div className="bg-gray-50 rounded-lg p-3 md:p-4 space-y-3 md:space-y-4">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex-1">
-          <label className="block text-xs text-gray-500 mb-1">日付</label>
+          <label className="block text-xs text-gray-500 mb-1">{t('date')}</label>
           <input
             type="date"
             value={day.date}
@@ -75,7 +78,7 @@ export function DayEditor({ day, onUpdate, onDelete, googleMapsApiKey }: DayEdit
             onClick={onDelete}
             className="text-red-500 hover:text-red-700 text-sm self-start sm:self-auto"
           >
-            この日を削除
+            {tLocation('remove')}
           </button>
         )}
       </div>
@@ -101,7 +104,7 @@ export function DayEditor({ day, onUpdate, onDelete, googleMapsApiKey }: DayEdit
         onClick={addLocation}
         className="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors text-sm md:text-base"
       >
-        + 地点を追加
+        + {t('addLocation')}
       </button>
     </div>
   );

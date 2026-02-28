@@ -1,0 +1,56 @@
+{
+  "common": {
+    "appName": "Trippy",
+    "editMode": "編集モード",
+    "previewMode": "プレビューモード",
+    "shareUrl": "URLをコピー",
+    "urlCopied": "URLをコピーしました！",
+    "language": "言語"
+  },
+  "languages": {
+    "en-US": "English (US)",
+    "en-GB": "English (UK)",
+    "ja": "日本語"
+  },
+  "trip": {
+    "title": "旅行計画",
+    "addDay": "日程を追加",
+    "day": "{{number}}日目",
+    "date": "日付",
+    "addLocation": "場所を追加"
+  },
+  "location": {
+    "searchPlaceholder": "場所を検索...",
+    "stayDuration": "滞在時間",
+    "hours": "時間",
+    "minutes": "分",
+    "transport": "移動方法",
+    "searchRoute": "ルート検索",
+    "remove": "削除"
+  },
+  "transport": {
+    "driving": "車",
+    "walking": "徒歩",
+    "transit": "公共交通機関",
+    "bicycling": "自転車"
+  },
+  "routeSearch": {
+    "title": "ルート検索",
+    "from": "出発地",
+    "to": "目的地",
+    "searching": "検索中...",
+    "noResults": "ルートが見つかりませんでした",
+    "select": "選択",
+    "close": "閉じる"
+  },
+  "timeline": {
+    "title": "旅程",
+    "stay": "滞在",
+    "travel": "移動",
+    "itinerary": "{{days}}日間の旅程",
+    "stayTime": "滞在時間"
+  },
+  "errors": {
+    "mapsApiKey": "Google Maps APIキーが設定されていません。詳細はREADME.mdを確認してください。"
+  }
+}

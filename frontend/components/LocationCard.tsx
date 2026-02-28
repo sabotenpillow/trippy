@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Location, Transport } from "@/types/trip";
 import { formatDuration, formatDistance, getTravelModeEmoji } from "@/lib/trip-utils";
 import { PlacesAutocomplete } from "./PlacesAutocomplete";
@@ -29,6 +30,8 @@ export function LocationCard({
   showTransport,
   googleMapsApiKey,
 }: LocationCardProps) {
+  const t = useTranslations('location');
+  const tTransport = useTranslations('transport');
   const [showRouteSearch, setShowRouteSearch] = useState(false);
 
   const handleTransportChange = (field: keyof Transport, value: string | number) => {

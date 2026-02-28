@@ -1,0 +1,56 @@
+{
+  "common": {
+    "appName": "Trippy",
+    "editMode": "Edit Mode",
+    "previewMode": "Preview Mode",
+    "shareUrl": "Copy URL",
+    "urlCopied": "URL copied!",
+    "language": "Language"
+  },
+  "languages": {
+    "en-US": "English (US)",
+    "en-GB": "English (UK)",
+    "ja": "日本語"
+  },
+  "trip": {
+    "title": "Travel Plan",
+    "addDay": "Add Day",
+    "day": "Day {{number}}",
+    "date": "Date",
+    "addLocation": "Add Location"
+  },
+  "location": {
+    "searchPlaceholder": "Search for a place...",
+    "stayDuration": "Stay Duration",
+    "hours": "hours",
+    "minutes": "minutes",
+    "transport": "Transportation",
+    "searchRoute": "Search Route",
+    "remove": "Remove"
+  },
+  "transport": {
+    "driving": "Driving",
+    "walking": "Walking",
+    "transit": "Transit",
+    "bicycling": "Bicycling"
+  },
+  "routeSearch": {
+    "title": "Route Search",
+    "from": "From",
+    "to": "To",
+    "searching": "Searching...",
+    "noResults": "No routes found",
+    "select": "Select",
+    "close": "Close"
+  },
+  "timeline": {
+    "title": "Itinerary",
+    "stay": "Stay",
+    "travel": "Travel",
+    "itinerary": "{{days}}-day itinerary",
+    "stayTime": "Stay time"
+  },
+  "errors": {
+    "mapsApiKey": "Google Maps API key is not configured. Please check README.md for details."
+  }
+}
