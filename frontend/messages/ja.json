@@ -52,5 +52,10 @@
   },
   "errors": {
     "mapsApiKey": "Google Maps APIキーが設定されていません。詳細はREADME.mdを確認してください。"
+  },
+  "auth": {
+    "signIn": "ログイン",
+    "signOut": "ログアウト",
+    "signInWithGoogle": "Googleでログイン"
   }
 }

@@ -1,6 +1,7 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import Script from 'next/script';
+import AuthProvider from '@/components/AuthProvider';
 import '../globals.css';
 
 export default async function LocaleLayout({
@@ -24,9 +25,11 @@ export default async function LocaleLayout({
             strategy="afterInteractive"
           />
         )}
-        <NextIntlClientProvider messages={messages}>
-          {children}
-        </NextIntlClientProvider>
+        <AuthProvider>
+          <NextIntlClientProvider messages={messages}>
+            {children}
+          </NextIntlClientProvider>
+        </AuthProvider>
       </body>
     </html>
   );

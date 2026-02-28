@@ -9,6 +9,7 @@ import { TripTimeline } from "@/components/TripTimeline";
 import { TripMap } from "@/components/TripMap";
 import { AdSense } from "@/components/AdSense";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import UserButton from "@/components/UserButton";
 
 export default function HomePage() {
   const t = useTranslations('common');
@@ -81,7 +82,8 @@ export default function HomePage() {
     <main className="min-h-screen p-4 md:p-8 bg-gradient-to-br from-blue-50 to-indigo-100">
       <div className="max-w-4xl mx-auto">
         <div className="mb-6 md:mb-8">
-          <div className="flex justify-end mb-4">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-3 mb-4">
+            <UserButton />
             <LanguageSwitcher />
           </div>
           <div className="text-center">
