@@ -52,5 +52,10 @@
   },
   "errors": {
     "mapsApiKey": "Google Maps API key is not configured. Please check README.md for details."
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "signInWithGoogle": "Sign in with Google"
   }
 }

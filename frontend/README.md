@@ -28,8 +28,13 @@ A travel itinerary sharing app that allows you to create and share trip plans wi
   - Japanese 🇯🇵
   - Automatic browser language detection
   - Language preserved in shared URLs
+- 🔐 **User Authentication** (optional)
+  - Google OAuth sign-in
+  - No backend required
+  - Session management with NextAuth.js
+  - Save favorite plans locally
 
-## セットアップ
+## Setup
 
 ### 1. 依存関係のインストール
 
@@ -62,7 +67,30 @@ NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your_api_key_here
 
 詳細は `GOOGLE_MAPS_SETUP.md` を参照してください。
 
-### 3. Google AdSense の設定（オプション）
+### 3. User Authentication Setup (Optional)
+
+To enable Google sign-in for user authentication:
+
+1. Go to [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
+2. Create OAuth 2.0 credentials (or use existing project from Maps API)
+3. Configure OAuth consent screen
+4. Add authorized redirect URIs:
+   - Development: `http://localhost:3000/api/auth/callback/google`
+   - Production: `https://your-domain.com/api/auth/callback/google`
+5. Generate an AUTH_SECRET: `openssl rand -base64 32`
+6. Add to `.env.local`:
+
+```bash
+AUTH_SECRET=your_generated_secret
+AUTH_GOOGLE_ID=your_google_client_id
+AUTH_GOOGLE_SECRET=your_google_client_secret
+```
+
+**No backend required**: Authentication uses NextAuth.js with serverless architecture. User sessions are managed with HTTP-only cookies.
+
+See [AUTHENTICATION_SETUP.md](./AUTHENTICATION_SETUP.md) for detailed setup instructions.
+
+### 4. Google AdSense の設定（オプション）
 
 広告収益を得たい場合は、Google AdSenseを設定できます。
 
@@ -81,7 +109,15 @@ NEXT_PUBLIC_ADSENSE_CLIENT_ID=ca-pub-xxxxxxxxxxxxxxxx
 
 詳細は `ADSENSE_SETUP.md` を参照してください。
 
-### 4. 開発サーバー起動
+### 5. Development Server
+
+```bash
+npm run dev
+```
+
+Development server starts at http://localhost:3000.
+
+### 6. Production Build
 
 ```bash
 npm run dev
