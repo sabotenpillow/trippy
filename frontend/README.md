@@ -12,12 +12,14 @@
   - 地点検索（Places Autocomplete）
   - 地図上にマーカー表示
   - ルート表示
-  - **🔍 ルート検索機能（NEW!）**
+  - **🔍 ルート検索機能**
     - 車🚗、徒歩🚶、公共交通機関🚆、自転車🚴の移動時間を自動計算
     - 移動距離も取得
     - 複数の移動手段を比較して選択可能
 - 🔗 URLで簡単共有（バックエンド不要）
 - 👀 編集モードとプレビューモードの切り替え
+- 📱 モバイル・タブレット・デスクトップ対応
+- 💰 **Google AdSense広告統合**（オプション）
 
 ## セットアップ
 
@@ -50,7 +52,28 @@ NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your_api_key_here
 
 **注意**: APIキー未設定でもアプリは動作しますが、地図機能とルート検索は利用できません（手動入力は可能）。
 
-### 3. 開発サーバー起動
+詳細は `GOOGLE_MAPS_SETUP.md` を参照してください。
+
+### 3. Google AdSense の設定（オプション）
+
+広告収益を得たい場合は、Google AdSenseを設定できます。
+
+1. [Google AdSense](https://www.google.com/adsense/) でアカウントを作成
+2. サイトを追加して審査を申請
+3. 承認後、クライアントIDを取得
+4. `.env.local`に追加：
+
+```bash
+NEXT_PUBLIC_ADSENSE_CLIENT_ID=ca-pub-xxxxxxxxxxxxxxxx
+```
+
+5. `app/page.tsx`の`adSlot`を実際の広告スロットIDに変更
+
+**バックエンド不要**: AdSenseは完全にクライアントサイドで動作します。
+
+詳細は `ADSENSE_SETUP.md` を参照してください。
+
+### 4. 開発サーバー起動
 
 ```bash
 npm run dev
@@ -58,7 +81,7 @@ npm run dev
 
 開発サーバーは http://localhost:3000 で起動します。
 
-### 4. プロダクションビルド
+### 5. プロダクションビルド
 
 ```bash
 npm run build
