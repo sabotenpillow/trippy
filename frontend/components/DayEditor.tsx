@@ -59,28 +59,28 @@ export function DayEditor({ day, onUpdate, onDelete, googleMapsApiKey }: DayEdit
   };
 
   return (
-    <div className="bg-gray-50 rounded-lg p-4 space-y-4">
-      <div className="flex items-center justify-between">
+    <div className="bg-gray-50 rounded-lg p-3 md:p-4 space-y-3 md:space-y-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex-1">
           <label className="block text-xs text-gray-500 mb-1">日付</label>
           <input
             type="date"
             value={day.date}
             onChange={(e) => onUpdate({ ...day, date: e.target.value })}
-            className="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full sm:w-auto px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm md:text-base"
           />
         </div>
         {onDelete && (
           <button
             onClick={onDelete}
-            className="text-red-500 hover:text-red-700 text-sm"
+            className="text-red-500 hover:text-red-700 text-sm self-start sm:self-auto"
           >
             この日を削除
           </button>
         )}
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3 md:space-y-4">
         {day.locations.map((location, index) => (
           <LocationCard
             key={location.id}
@@ -99,7 +99,7 @@ export function DayEditor({ day, onUpdate, onDelete, googleMapsApiKey }: DayEdit
 
       <button
         onClick={addLocation}
-        className="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+        className="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors text-sm md:text-base"
       >
         + 地点を追加
       </button>

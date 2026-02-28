@@ -150,11 +150,11 @@ export function TripMap({ locations, apiKey }: TripMapProps) {
   }
 
   return (
-    <div className="relative w-full h-[500px] rounded-lg overflow-hidden border border-gray-300">
+    <div className="relative w-full h-[400px] md:h-[500px] rounded-lg overflow-hidden border border-gray-300">
       <div ref={mapRef} className="w-full h-full" />
       {locations.filter((loc) => loc.coordinates).length === 0 && (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-50 bg-opacity-90">
-          <p className="text-gray-600">地点に座標が設定されていません</p>
+          <p className="text-gray-600 text-sm md:text-base px-4 text-center">地点に座標が設定されていません</p>
         </div>
       )}
     </div>
