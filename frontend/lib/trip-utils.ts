@@ -60,6 +60,43 @@ export function formatDuration(minutes: number): string {
 }
 
 /**
+ * Format distance in meters to human-readable string
+ */
+export function formatDistance(meters: number): string {
+  if (meters < 1000) {
+    return `${meters}m`;
+  }
+  const km = (meters / 1000).toFixed(1);
+  return `${km}km`;
+}
+
+/**
+ * Get Japanese label for travel mode
+ */
+export function getTravelModeLabel(mode: string): string {
+  const labels: Record<string, string> = {
+    DRIVING: "車",
+    WALKING: "徒歩",
+    TRANSIT: "公共交通機関",
+    BICYCLING: "自転車",
+  };
+  return labels[mode] || mode;
+}
+
+/**
+ * Get emoji for travel mode
+ */
+export function getTravelModeEmoji(mode: string): string {
+  const emojis: Record<string, string> = {
+    DRIVING: "🚗",
+    WALKING: "🚶",
+    TRANSIT: "🚆",
+    BICYCLING: "🚴",
+  };
+  return emojis[mode] || "🚆";
+}
+
+/**
  * Generate unique ID
  */
 export function generateId(): string {

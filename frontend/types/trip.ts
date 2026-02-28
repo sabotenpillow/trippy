@@ -1,6 +1,8 @@
 export interface Transport {
-  method: string; // '電車', '車', '飛行機', '徒歩', etc.
+  method: string; // '電車', '車', '飛行機', '徒歩' etc.
   duration: number; // minutes
+  distance?: number; // meters
+  travelMode?: 'DRIVING' | 'WALKING' | 'TRANSIT' | 'BICYCLING';
 }
 
 export interface Location {
@@ -9,6 +11,11 @@ export interface Location {
   stayDuration: number; // minutes
   notes?: string;
   transport?: Transport; // transport to this location from previous one
+  coordinates?: {
+    lat: number;
+    lng: number;
+  };
+  placeId?: string; // Google Places ID
 }
 
 export interface Day {

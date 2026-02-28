@@ -1,27 +1,36 @@
 "use client";
 
+import { useState } from "react";
 import { Location, Transport } from "@/types/trip";
-import { formatDuration } from "@/lib/trip-utils";
+import { formatDuration, formatDistance, getTravelModeEmoji } from "@/lib/trip-utils";
+import { PlacesAutocomplete } from "./PlacesAutocomplete";
+import { RouteSearch } from "./RouteSearch";
 
 interface LocationCardProps {
   location: Location;
   index: number;
+  previousLocation?: Location;
   onUpdate: (location: Location) => void;
   onDelete: () => void;
   onMoveUp?: () => void;
   onMoveDown?: () => void;
   showTransport: boolean;
+  googleMapsApiKey?: string;
 }
 
 export function LocationCard({
   location,
   index,
+  previousLocation,
   onUpdate,
   onDelete,
   onMoveUp,
   onMoveDown,
   showTransport,
+  googleMapsApiKey,
 }: LocationCardProps) {
+  const [showRouteSearch, setShowRouteSearch] = useState(false);
+
   const handleTransportChange = (field: keyof Transport, value: string | number) => {
     const transport = location.transport || { method: "", duration: 0 };
     onUpdate({
@@ -30,29 +39,81 @@ export function LocationCard({
     });
   };
 
+  const handlePlaceSelect = (
+    name: string,
+    placeDetails?: { coordinates: { lat: number; lng: number }; placeId: string }
+  ) => {
+    onUpdate({
+      ...location,
+      name,
+      coordinates: placeDetails?.coordinates,
+      placeId: placeDetails?.placeId,
+    });
+  };
+
+  const handleRouteSelect = (transport: {
+    method: string;
+    duration: number;
+    distance?: number;
+    travelMode?: 'DRIVING' | 'WALKING' | 'TRANSIT' | 'BICYCLING';
+  }) => {
+    onUpdate({
+      ...location,
+      transport,
+    });
+  };
+
+  const canSearchRoute = googleMapsApiKey && 
+    previousLocation?.coordinates && 
+    location.coordinates;
+
   return (
     <div className="space-y-4">
-      {showTransport && location.transport && (
-        <div className="flex items-center gap-3 text-sm text-gray-600 pl-4">
-          <div className="flex-1 flex items-center gap-2 bg-blue-50 rounded-lg p-3">
-            <span className="text-blue-600">🚆</span>
-            <input
-              type="text"
-              value={location.transport.method}
-              onChange={(e) => handleTransportChange("method", e.target.value)}
-              placeholder="移動方法 (例: 電車)"
-              className="flex-1 bg-transparent border-none outline-none text-gray-700"
-            />
-            <input
-              type="number"
-              value={location.transport.duration}
-              onChange={(e) => handleTransportChange("duration", parseInt(e.target.value) || 0)}
-              placeholder="0"
-              min="0"
-              className="w-20 bg-transparent border-none outline-none text-right text-gray-700"
-            />
-            <span className="text-gray-600">分</span>
-          </div>
+      {showTransport && (
+        <div className="pl-4 space-y-3">
+          {/* Route Search Button */}
+          {canSearchRoute && (
+            <button
+              onClick={() => setShowRouteSearch(true)}
+              className="w-full py-2 px-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all shadow-sm flex items-center justify-center gap-2"
+            >
+              🔍 ルート検索
+            </button>
+          )}
+
+          {/* Transport Info */}
+          {location.transport && (
+            <div className="flex items-center gap-3 text-sm text-gray-600">
+              <div className="flex-1 flex items-center gap-2 bg-blue-50 rounded-lg p-3">
+                <span className="text-xl">
+                  {location.transport.travelMode 
+                    ? getTravelModeEmoji(location.transport.travelMode)
+                    : "🚆"}
+                </span>
+                <input
+                  type="text"
+                  value={location.transport.method}
+                  onChange={(e) => handleTransportChange("method", e.target.value)}
+                  placeholder="移動方法 (例: 電車)"
+                  className="flex-1 bg-transparent border-none outline-none text-gray-700 min-w-0"
+                />
+                <input
+                  type="number"
+                  value={location.transport.duration}
+                  onChange={(e) => handleTransportChange("duration", parseInt(e.target.value) || 0)}
+                  placeholder="0"
+                  min="0"
+                  className="w-16 bg-transparent border-none outline-none text-right text-gray-700"
+                />
+                <span className="text-gray-600 whitespace-nowrap">分</span>
+                {location.transport.distance && (
+                  <span className="text-gray-500 text-xs whitespace-nowrap">
+                    ({formatDistance(location.transport.distance)})
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       )}
 
@@ -77,11 +138,16 @@ export function LocationCard({
 
           <div className="flex-1 space-y-3">
             <div>
-              <label className="block text-xs text-gray-500 mb-1">地点名</label>
-              <input
-                type="text"
+              <label className="block text-xs text-gray-500 mb-1">
+                地点名
+                {location.coordinates && (
+                  <span className="ml-2 text-green-600">📍 座標設定済み</span>
+                )}
+              </label>
+              <PlacesAutocomplete
                 value={location.name}
-                onChange={(e) => onUpdate({ ...location, name: e.target.value })}
+                onChange={handlePlaceSelect}
+                apiKey={googleMapsApiKey}
                 placeholder="例: 東京駅"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
@@ -120,13 +186,24 @@ export function LocationCard({
 
           <button
             onClick={onDelete}
-            className="text-red-500 hover:text-red-700 mt-2"
+            className="text-red-500 hover:text-red-700 mt-2 text-xl"
             aria-label="削除"
           >
             ×
           </button>
         </div>
       </div>
+
+      {/* Route Search Modal */}
+      {showRouteSearch && previousLocation && (
+        <RouteSearch
+          origin={previousLocation}
+          destination={location}
+          apiKey={googleMapsApiKey}
+          onSelect={handleRouteSelect}
+          onClose={() => setShowRouteSearch(false)}
+        />
+      )}
     </div>
   );
 }
