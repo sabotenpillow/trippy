@@ -1,14 +1,18 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { TripPlan, Day } from "@/types/trip";
 import { createEmptyTripPlan, encodeTripPlan, decodeTripPlan, generateId } from "@/lib/trip-utils";
 import { DayEditor } from "@/components/DayEditor";
 import { TripTimeline } from "@/components/TripTimeline";
 import { TripMap } from "@/components/TripMap";
 import { AdSense } from "@/components/AdSense";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function HomePage() {
+  const t = useTranslations('common');
+  const tTrip = useTranslations('trip');
   const [tripPlan, setTripPlan] = useState<TripPlan>(createEmptyTripPlan());
   const [mode, setMode] = useState<"edit" | "view">("edit");
   const [copied, setCopied] = useState(false);
@@ -76,9 +80,14 @@ export default function HomePage() {
   return (
     <main className="min-h-screen p-4 md:p-8 bg-gradient-to-br from-blue-50 to-indigo-100">
       <div className="max-w-4xl mx-auto">
-        <div className="mb-6 md:mb-8 text-center">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">✈️ Trippy</h1>
-          <p className="text-sm md:text-base text-gray-600">旅行経路を作成してURLで共有しよう</p>
+        <div className="mb-6 md:mb-8">
+          <div className="flex justify-end mb-4">
+            <LanguageSwitcher />
+          </div>
+          <div className="text-center">
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">✈️ {t('appName')}</h1>
+            <p className="text-sm md:text-base text-gray-600">{tTrip('title')}</p>
+          </div>
         </div>
 
         <div className="bg-white rounded-lg shadow-lg p-4 md:p-6 mb-4 md:mb-6">
@@ -92,7 +101,7 @@ export default function HomePage() {
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                 }`}
               >
-                編集
+                {t('editMode')}
               </button>
               <button
                 onClick={() => setMode("view")}
@@ -102,7 +111,7 @@ export default function HomePage() {
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                 }`}
               >
-                プレビュー
+                {t('previewMode')}
               </button>
             </div>
             <div className="flex flex-col sm:flex-row gap-2">
@@ -110,13 +119,7 @@ export default function HomePage() {
                 onClick={shareTrip}
                 className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors text-sm md:text-base"
               >
-                {copied ? "✓ コピー済み" : "📋 共有リンクをコピー"}
-              </button>
-              <button
-                onClick={resetTrip}
-                className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors text-sm md:text-base"
-              >
-                新規作成
+                {copied ? `✓ ${t('urlCopied')}` : `📋 ${t('shareUrl')}`}
               </button>
             </div>
           </div>
@@ -124,13 +127,13 @@ export default function HomePage() {
           {mode === "edit" && (
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                旅行タイトル
+                {tTrip('title')}
               </label>
               <input
                 type="text"
                 value={tripPlan.title}
                 onChange={(e) => setTripPlan({ ...tripPlan, title: e.target.value })}
-                placeholder="例: 北海道旅行"
+                placeholder={tTrip('title')}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm md:text-base"
               />
             </div>
@@ -141,12 +144,12 @@ export default function HomePage() {
         {allLocations.length > 0 && (
           <div className="bg-white rounded-lg shadow-lg p-4 md:p-6 mb-4 md:mb-6">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-base md:text-lg font-semibold text-gray-800">🗺️ マップ表示</h2>
+              <h2 className="text-base md:text-lg font-semibold text-gray-800">🗺️ Map</h2>
               <button
                 onClick={() => setShowMap(!showMap)}
                 className="px-3 py-1 text-xs md:text-sm bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
               >
-                {showMap ? "非表示" : "表示"}
+                {showMap ? "Hide" : "Show"}
               </button>
             </div>
             {showMap && (
@@ -178,7 +181,7 @@ export default function HomePage() {
               onClick={addDay}
               className="w-full py-3 px-4 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 transition-colors font-medium"
             >
-              + 日を追加
+              + {tTrip('addDay')}
             </button>
           </div>
         ) : (

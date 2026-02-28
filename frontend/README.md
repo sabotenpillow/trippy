@@ -1,25 +1,33 @@
-# Trippy - 旅行経路共有アプリ
+# Trippy - Travel Itinerary Sharing App
 
-旅行の経由地や目的地、それぞれの滞在時間、移動方法と移動時間をURLで共有できるアプリです。
+A travel itinerary sharing app that allows you to create and share trip plans with stops, stay durations, and transportation details via URL.
 
-## 機能
+🌐 **Multi-language support**: English (US/UK) and Japanese
 
-- ✈️ 複数日の旅行プラン作成
-- 📍 地点の追加・削除・並び替え
-- ⏱️ 滞在時間と移動時間の設定
-- 🚆 移動方法の記録
-- 🗺️ **Google Maps統合**
-  - 地点検索（Places Autocomplete）
-  - 地図上にマーカー表示
-  - ルート表示
-  - **🔍 ルート検索機能**
-    - 車🚗、徒歩🚶、公共交通機関🚆、自転車🚴の移動時間を自動計算
-    - 移動距離も取得
-    - 複数の移動手段を比較して選択可能
-- 🔗 URLで簡単共有（バックエンド不要）
-- 👀 編集モードとプレビューモードの切り替え
-- 📱 モバイル・タブレット・デスクトップ対応
-- 💰 **Google AdSense広告統合**（オプション）
+## Features
+
+- ✈️ Create multi-day travel plans
+- 📍 Add, delete, and reorder locations
+- ⏱️ Set stay and travel times
+- 🚆 Record transportation methods
+- 🗺️ **Google Maps Integration**
+  - Location search (Places Autocomplete)
+  - Map markers
+  - Route display
+  - **🔍 Route Search**
+    - Automatic time calculation for car 🚗, walking 🚶, transit 🚆, cycling 🚴
+    - Distance information
+    - Compare multiple transportation modes
+- 🔗 Easy URL sharing (no backend required)
+- 👀 Edit mode and preview mode
+- 📱 Mobile, tablet, and desktop responsive
+- 💰 **Google AdSense Integration** (optional)
+- 🌐 **Multi-language Support**
+  - English (US) 🇺🇸
+  - English (UK) 🇬🇧
+  - Japanese 🇯🇵
+  - Automatic browser language detection
+  - Language preserved in shared URLs
 
 ## セットアップ
 
@@ -88,17 +96,30 @@ npm run build
 npm start
 ```
 
-## 技術スタック
+## Tech Stack
 
-- **Next.js 16** (App Router)
+- **Next.js 16** (App Router with i18n)
 - **TypeScript**
 - **Tailwind CSS**
 - **React 19**
+- **next-intl** (Internationalization)
 - **Google Maps JavaScript API**
   - Places API
   - Directions API
 
-## 使い方
+## Language Support
+
+Trippy supports multiple languages with automatic detection:
+
+- 🇺🇸 **English (US)** - American English
+- 🇬🇧 **English (UK)** - British English  
+- 🇯🇵 **Japanese** - 日本語
+
+The app automatically detects your browser language and displays the appropriate version. You can manually switch languages using the selector in the header. When you share a URL, the selected language is preserved.
+
+For more details on internationalization, see [I18N_GUIDE.md](./I18N_GUIDE.md).
+
+## How to Use
 
 ### 1. プランの作成
 

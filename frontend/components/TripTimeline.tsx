@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { TripPlan } from "@/types/trip";
 import { formatDuration, getTravelModeEmoji } from "@/lib/trip-utils";
 
@@ -8,12 +9,13 @@ interface TripTimelineProps {
 }
 
 export function TripTimeline({ plan }: TripTimelineProps) {
+  const t = useTranslations('timeline');
   return (
     <div className="space-y-6 md:space-y-8">
       <div className="text-center">
         <h1 className="text-2xl md:text-3xl font-bold text-gray-900">{plan.title}</h1>
         <p className="text-sm md:text-base text-gray-600 mt-2">
-          {plan.days.length}日間の旅程
+          {t('itinerary', { days: plan.days.length })}
         </p>
       </div>
 
@@ -32,9 +34,9 @@ export function TripTimeline({ plan }: TripTimelineProps) {
               </h2>
               <p className="text-sm md:text-base text-gray-600">{day.date}</p>
               <div className="mt-2 flex flex-wrap gap-2 md:gap-4 text-xs md:text-sm text-gray-500">
-                <span>滞在: {formatDuration(totalStayTime)}</span>
-                <span>移動: {formatDuration(totalTransportTime)}</span>
-                <span className="font-semibold">合計: {formatDuration(totalStayTime + totalTransportTime)}</span>
+                <span>{t('stay')}: {formatDuration(totalStayTime)}</span>
+                <span>{t('travel')}: {formatDuration(totalTransportTime)}</span>
+                <span className="font-semibold">Total: {formatDuration(totalStayTime + totalTransportTime)}</span>
               </div>
             </div>
 
@@ -72,7 +74,7 @@ export function TripTimeline({ plan }: TripTimelineProps) {
                         {location.name || "未設定"}
                       </h3>
                       <div className="text-xs md:text-sm text-gray-600">
-                        <p>滞在時間: {formatDuration(location.stayDuration)}</p>
+                        <p>{t('stayTime')}: {formatDuration(location.stayDuration)}</p>
                         {location.notes && (
                           <p className="mt-2 text-gray-500 break-words">📝 {location.notes}</p>
                         )}
